@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} | %-5p | @project.name@ | %X{CorrelationId} | %t | %X{IPAddress} | %c{1} | %m%n"/>
+        </Console>
+        <Socket name="remote" host="vfip-logstash" port="5108" protocol="UDP">
+            <PatternLayout
+                    pattern="%d{ISO8601} | %-5p | @project.name@ | %X{CorrelationId} | %t | %X{IPAddress} | %c{1} | %m%n"/>
+        </Socket>
+        <RollingFile name="FileAppender"
+                     fileName="/opt/vinfast-iot-platform/logs/vfip-central-config.log"
+                     filePattern="/opt/vinfast-iot-platform/logs/backup/vfip-central-config-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{ISO8601} | %-5p | @project.name@ | %X{CorrelationId} | %t | %X{IPAddress} | %c{1} | %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1GB" />
+                <TimeBasedTriggeringPolicy interval="1" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="remote"/>
+        </Root>
+    </Loggers>
+</Configuration>
