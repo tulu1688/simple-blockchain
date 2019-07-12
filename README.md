@@ -1,3 +1,4 @@
+```
 sudo apt-get install httpie
 
 mvn spring-boot:run -Dserver.port=8000
@@ -8,3 +9,4 @@ echo "{\"nodes\":[\"localhost:8001\"]}" | http POST localhost:8000/simple-blockc
 http localhost:8001/simple-blockchain/v1.0/chain
 http localhost:8001/simple-blockchain/v1.0/nodes/resolve
 http localhost:8001/simple-blockchain/v1.0/chain
+```
